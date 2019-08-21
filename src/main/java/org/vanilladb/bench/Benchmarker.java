@@ -48,6 +48,10 @@ public abstract class Benchmarker {
 	
 	protected abstract RemoteTerminalEmulator<?> createRte(SutConnection conn, StatisticMgr statMgr);
 	
+	public int getNumOfRTEs() {
+		return BenchmarkerParameters.NUM_RTES;
+	}
+	
 	public void loadTestbed() {
 		if (logger.isLoggable(Level.INFO))
 			logger.info("loading the testbed of tpcc benchmark...");
@@ -68,9 +72,9 @@ public abstract class Benchmarker {
 	public void benchmark() {
 		try {
 			if (logger.isLoggable(Level.INFO))
-				logger.info("creating " + BenchmarkerParameters.NUM_RTES + " emulators...");
+				logger.info("creating " + getNumOfRTEs() + " emulators...");
 			
-			RemoteTerminalEmulator<?>[] emulators = new RemoteTerminalEmulator[BenchmarkerParameters.NUM_RTES];
+			RemoteTerminalEmulator<?>[] emulators = new RemoteTerminalEmulator[getNumOfRTEs()];
 			for (int i = 0; i < emulators.length; i++)
 				emulators[i] = createRte(getConnection(), statMgr);
 			
